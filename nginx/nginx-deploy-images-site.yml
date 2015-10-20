@@ -1,0 +1,22 @@
+#./webftp-ansible/tasks/ngins-deploy-images-site.yml
+
+- hosts: webftp
+  sudo: yes
+
+  tasks:
+    - include: ./tasks/make-www-images-directory.yml
+
+  roles:
+  - role: jdauphant.nginx
+    nginx_user: "dasher"
+    nginx_http_params:
+      - sendfile "on"
+      - tcp_nopush "on"
+      - access_log "/var/log/nginx/access.log"
+    nginx_sites:
+      images:
+        - root "/home/dasher/www/nginx/html"
+        - listen 80
+        - location / { try_files $uri $uri/ /index.html; }
+        - location /images { autoindex on; }
+

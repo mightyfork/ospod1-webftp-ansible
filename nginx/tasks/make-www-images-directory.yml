@@ -1,0 +1,9 @@
+# ./webftp-ansible/tasks/make-www-images-directory.yml
+
+- name: create directory for iso/instance images
+  file: path=/home/dasher/www/nginx/html/images state=directory owner=dasher group=dasher mode=0774
+- name: copy default index.html file to new root
+  command: cp /usr/share/nginx/html/index.html /home/dasher/www/nginx/html/
+- name: copy default 50x.html file to new root
+  command: cp /usr/share/nginx/html/50x.html /home/dasher/www/nginx/html/
+
